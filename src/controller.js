@@ -1,7 +1,8 @@
 const Web3 = require("web3");
-const abi = require("./abi/ERC20.json");
-
+const fetch = reqiure("node-fetch");
 const NodeCache = require("node-cache");
+
+const abi = require("./abi/ERC20.json");
 const cache = new NodeCache();
 
 const addressToCheckBal = ["0xFdf0d51ddD34102472D7130c3d4831BC77386e78"];
