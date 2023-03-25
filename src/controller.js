@@ -1,5 +1,5 @@
 const Web3 = require("web3");
-const fetch = reqiure("node-fetch");
+const fetch = require("node-fetch");
 const NodeCache = require("node-cache");
 
 const abi = require("./abi/ERC20.json");
