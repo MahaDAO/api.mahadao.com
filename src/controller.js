@@ -1,5 +1,6 @@
 const Web3 = require("web3");
 const abi = require("./abi/ERC20.json");
+
 const NodeCache = require("node-cache");
 const cache = new NodeCache();
 
@@ -39,6 +40,14 @@ const getCirculatingSupply = async () => {
   return totalSupply - totalBalance;
 };
 
+const getMAHAINRPrice = async () => {
+  const api = await fetch(
+    "https://api.coingecko.com/api/v3/simple/price?ids=mahadao&vs_currencies=inr"
+  );
+  const json = await api.json();
+  return json.mahadao.inr;
+};
+
 const circulatingSupply = async (_req, res) => {
   res.set("Content-Type", "text/html");
   res.status(200);
@@ -65,7 +74,21 @@ const totalSupply = async (_req, res) => {
   }
 };
 
+const mahaInrPrice = async (_req, res) => {
+  res.set("Content-Type", "text/html");
+  res.status(200);
+
+  if (cache.get("maha-inr")) {
+    res.send(cache.get("maha-inr"));
+  } else {
+    const supply = await getMAHAINRPrice();
+    cache.set("maha-inr", supply.toString(), 60);
+    res.send(supply.toString());
+  }
+};
+
 module.exports = {
   circulatingSupply,
   totalSupply,
+  mahaInrPrice,
 };
