@@ -46,6 +46,7 @@ const getMAHAINRPrice = async () => {
     "https://api.coingecko.com/api/v3/simple/price?ids=mahadao&vs_currencies=inr"
   );
   const json = await api.json();
+  console.log(json);
   return json.mahadao.inr;
 };
 
